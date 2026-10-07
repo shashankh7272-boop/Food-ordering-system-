@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Checkout{% endblock %}
+{% block content %}
+<div class="form-box">
+<h2>Checkout</h2>
+<p><b>Total: ₹{{ total }}</b></p>
+<form method="POST">
+    <input type="text" name="phone" placeholder="Phone Number" required>
+    <textarea name="address" placeholder="Delivery Address" required></textarea>
+    <button class="btn" type="submit">Place Order</button>
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}My Orders{% endblock %}
+{% block content %}
+<h2>My Orders 📦</h2>
+{% for order in orders %}
+<div class="order">
+    <h3>Order #{{ order._id }}</h3>
+    <p>Status: <b>{{ order.status }}</b></p>
+    <p>Address: {{ order.address }}</p>
+    <ul>
+    {% for item in order.items %}
+        <li>{{ item.name }} × {{ item.quantity }} = ₹{{ item.subtotal }}</li>
+    {% endfor %}
+    </ul>
+    <strong>Total: ₹{{ order.total }}</strong>
+</div>
+{% else %}
+<p>No orders yet.</p>
+{% endfor %}
+{% endblock %}

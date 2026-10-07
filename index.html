@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Food Menu{% endblock %}
+{% block content %}
+<section class="hero">
+    <h1>Order Your Favourite Food 🍕</h1>
+    <p>Fresh food, simple ordering and fast delivery.</p>
+</section>
+
+<h2>Menu</h2>
+<div class="grid">
+{% for food in foods %}
+    <div class="card">
+        <div class="food-icon">🍽️</div>
+        <h3>{{ food.name }}</h3>
+        <p class="category">{{ food.category }}</p>
+        <p>{{ food.description }}</p>
+        <strong>₹{{ food.price }}</strong>
+        <a class="btn" href="{{ url_for('add_to_cart', food_id=food._id) }}">Add to Cart</a>
+    </div>
+{% else %}
+    <p>No food items available.</p>
+{% endfor %}
+</div>
+{% endblock %}

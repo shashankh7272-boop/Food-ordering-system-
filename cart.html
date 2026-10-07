@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Cart{% endblock %}
+{% block content %}
+<h2>Your Cart 🛒</h2>
+{% if cart %}
+<div class="table-wrap">
+<table>
+<tr><th>Item</th><th>Price</th><th>Qty</th><th>Subtotal</th><th>Action</th></tr>
+{% for item in cart %}
+<tr>
+<td>{{ item.food.name }}</td>
+<td>₹{{ item.food.price }}</td>
+<td>
+<a href="{{ url_for('update_cart', food_id=item.food._id, action='decrease') }}">−</a>
+{{ item.quantity }}
+<a href="{{ url_for('update_cart', food_id=item.food._id, action='increase') }}">+</a>
+</td>
+<td>₹{{ item.subtotal }}</td>
+<td><a href="{{ url_for('update_cart', food_id=item.food._id, action='remove') }}">Remove</a></td>
+</tr>
+{% endfor %}
+<tr><th colspan="3">Total</th><th>₹{{ total }}</th><th></th></tr>
+</table>
+</div>
+<a class="btn" href="{{ url_for('checkout') }}">Proceed to Checkout</a>
+{% else %}
+<p>Your cart is empty.</p>
+<a class="btn" href="{{ url_for('index') }}">Browse Menu</a>
+{% endif %}
+{% endblock %}

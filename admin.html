@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+
+<div class="form-box">
+<h3>Add Food</h3>
+<form method="POST" action="{{ url_for('add_food') }}">
+    <input name="name" placeholder="Food name" required>
+    <input name="category" placeholder="Category" required>
+    <input name="price" type="number" step="0.01" placeholder="Price" required>
+    <input name="description" placeholder="Description" required>
+    <button class="btn" type="submit">Add Food</button>
+</form>
+</div>
+
+<h3>Food Items</h3>
+<div class="table-wrap">
+<table>
+<tr><th>Name</th><th>Category</th><th>Price</th><th>Action</th></tr>
+{% for food in foods %}
+<tr>
+<td>{{ food.name }}</td><td>{{ food.category }}</td><td>₹{{ food.price }}</td>
+<td><a href="{{ url_for('delete_food', food_id=food._id) }}">Delete</a></td>
+</tr>
+{% endfor %}
+</table>
+</div>
+
+<h3>Orders</h3>
+{% for order in orders %}
+<div class="order">
+    <p><b>Order:</b> {{ order._id }}</p>
+    <p>Customer: {{ order.customer_name }} | Total: ₹{{ order.total }}</p>
+    <p>Status: <b>{{ order.status }}</b></p>
+    <a href="{{ url_for('update_order_status', order_id=order._id, status='Preparing') }}">Preparing</a> |
+    <a href="{{ url_for('update_order_status', order_id=order._id, status='Out for Delivery') }}">Out for Delivery</a> |
+    <a href="{{ url_for('update_order_status', order_id=order._id, status='Delivered') }}">Delivered</a>
+</div>
+{% endfor %}
+{% endblock %}
